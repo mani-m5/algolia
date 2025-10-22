@@ -5,6 +5,8 @@ consumer:
   inputs:
     LOG_LEVEL: debug
     EVENT_PREFIX: $EVENT_PREFIX
+    OAUTH_CLIENT_ID: $OAUTH_CLIENT_ID
+    OAUTH_CLIENT_SECRET: $OAUTH_CLIENT_SECRET
   annotations:
     require-adobe-auth: true
     final: true
@@ -23,6 +25,12 @@ updated:
   runtime: nodejs:22
   inputs:
     LOG_LEVEL: debug
+    COMMERCE_BASE_URL: $COMMERCE_BASE_URL
+    OAUTH_CLIENT_ID: $OAUTH_CLIENT_ID
+    OAUTH_CLIENT_SECRET: $OAUTH_CLIENT_SECRET
+    OAUTH_SCOPES: $OAUTH_SCOPES
+    ENCRYPTION_KEY: $ENCRYPTION_KEY
+    ENCRYPTION_IV: $ENCRYPTION_IV
   annotations:
     require-adobe-auth: true
     final: true
@@ -32,6 +40,8 @@ deleted:
   runtime: nodejs:22
   inputs:
     LOG_LEVEL: debug
+    ENCRYPTION_KEY: $ENCRYPTION_KEY
+    ENCRYPTION_IV: $ENCRYPTION_IV
   annotations:
     require-adobe-auth: true
     final: true

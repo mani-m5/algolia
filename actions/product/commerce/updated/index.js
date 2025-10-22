@@ -34,7 +34,7 @@ async function main(params) {
     level: params.LOG_LEVEL || "info",
   });
 
-  logger.info("Start processing request");
+  logger.info("Start processing request - updated");
   logger.debug(`Received params: ${stringParameters(params)}`);
 
   try {
@@ -62,7 +62,7 @@ async function main(params) {
     postProcess(params, transformedData, preProcessed, result);
 
     logger.debug("Process finished successfully");
-    return actionSuccessResponse("Product updated successfully");
+    return actionSuccessResponse("Product updated successfully - testing");
   } catch (error) {
     logger.error(`Error processing the request: ${error.message}`);
     return actionErrorResponse(HTTP_INTERNAL_ERROR, error.message);

@@ -79,8 +79,31 @@ async function deleteProduct(baseUrl, params, sku) {
   return await client.delete(`products/${sku}`);
 }
 
+/**
+ * This function call Adobe commerce rest API to get a product
+ *
+ * @returns - API response object
+ * @param {string} baseUrl - Adobe commerce rest api base url
+ * @param {object} params - Environment params from the IO Runtime request
+ * @param {string} sku - Stock keeping unit
+ */
+async function getProduct(baseUrl, params, sku) {
+    logger.info("1111111111111111111111111111");
+
+  const client = getClient(
+    {
+      url: baseUrl,
+      params,
+    },
+    logger,
+  );
+  logger.info("2222222222222222222222");
+  return await client.get(`products/${sku}`);
+}
+
 module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  getProduct
 };

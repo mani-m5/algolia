@@ -101,7 +101,7 @@ The consumer defines the list of events we want to avoid infinite loops.
 ```javascript
 // Detect infinite loop and break it
 const infiniteLoopEventTypes = [
-  "com.adobe.commerce.observer.catalog_product_save_commit_after",
+  "com.adobe.commerce.algolia.observer.catalog_product_save_commit_after",
   "com.adobe.commerce.observer.catalog_product_delete_commit_after",
 ];
 ```

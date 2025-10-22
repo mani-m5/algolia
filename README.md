@@ -1,6 +1,6 @@
 # Commerce Integration Starter Kit
 
-[![Node.js CI](https://github.com/adobe/commerce-integration-starter-kit/actions/workflows/deploy_node_stage.yml/badge.svg)](https://github.com/adobe/commerce-integration-starter-kit/actions/workflows/deploy_node_stage.yml)
+[![Node.js CI](https://github.com/adobe/algolia/actions/workflows/deploy_node_stage.yml/badge.svg)](https://github.com/adobe/algolia/actions/workflows/deploy_node_stage.yml)
 
 _Table of contents_:
 

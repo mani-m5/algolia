@@ -34,7 +34,7 @@ async function main(params) {
     level: params.LOG_LEVEL || "info",
   });
 
-  logger.info("Start processing request");
+  logger.info("Start processing request - created");
   logger.debug(`Received params: ${stringParameters(params)}`);
 
   try {

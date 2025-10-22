@@ -56,6 +56,15 @@ application:
         license: Apache-2.0
         actions:
           $include: ./actions/stock/external/actions.config.yaml
+extensions:
+  commerce/backend-ui/1:
+    $include: src/commerce-backend-ui-1/ext.config.yaml
+
+configSchema:
+  title: 'Algolia Setup'
+  description: 'Configuration for Algolia'
+  properties: []
+
 productDependencies:
   - code: COMMC
     minVersion: 2.4.4

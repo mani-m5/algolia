@@ -8,7 +8,7 @@ const {
 const telemetryConfig = defineTelemetryConfig((params, isDev) => {
   return {
     sdkConfig: {
-      serviceName: "commerce-integration-starter-kit",
+      serviceName: "algolia",
       resource: getAioRuntimeResource(),
       instrumentations: getPresetInstrumentations("simple"),
     },

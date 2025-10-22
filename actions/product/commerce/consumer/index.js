@@ -67,8 +67,8 @@ async function main(params) {
     level: params.LOG_LEVEL || "info",
   });
 
-  logger.info("Start processing request");
-  logger.debug(`Consumer main params: ${stringParameters(params)}`);
+  logger.info("Start processing request - general");
+  logger.debug(`Consumer main params =========: ${stringParameters(params)}`);
 
   // Create a state instance
   const state = await stateLib.init();
@@ -85,7 +85,6 @@ async function main(params) {
       "data.value.created_at",
       "data.value.updated_at",
       "data.value.sku",
-      "data.value.description",
     ];
     const errorMessage = checkMissingRequestInputs(params, requiredParams, []);
 
@@ -125,7 +124,7 @@ async function main(params) {
         const createdAt = Date.parse(params.data.value.created_at);
         const updatedAt = Date.parse(params.data.value.updated_at);
         if (createdAt === updatedAt) {
-          logger.info("Invoking created product");
+          logger.info("Invoking created product 9999");
           const res = await openwhiskClient.invokeAction(
             "product-commerce/created",
             params.data.value,

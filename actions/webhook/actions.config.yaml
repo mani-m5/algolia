@@ -7,3 +7,12 @@ check-stock:
   annotations:
     require-adobe-auth: true
     final: true
+product-validation:
+  function: ./product-validation/validateProductName.js
+  web: 'yes'
+  runtime: nodejs:22
+  inputs:
+    LOG_LEVEL: debug
+  annotations:
+    require-adobe-auth: true
+    final: true

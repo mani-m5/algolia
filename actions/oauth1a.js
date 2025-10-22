@@ -34,6 +34,7 @@ function withBearer(token) {
  */
 function createClient(options, authOptions, logger) {
   const instance = {};
+logger.info("============== authOptions 11111111111   ===============");
 
   // Remove trailing slash if any
   const serverUrl = options.url;
@@ -42,6 +43,7 @@ function createClient(options, authOptions, logger) {
   let getAuthorizationHeaders = (opts) => {
     throw new Error("getAuthorizationHeaders not implemented");
   };
+logger.info("============== authOptions 222222222222222  ===============");
 
   if (authOptions?.ims) {
     const { ims } = authOptions;
@@ -168,6 +170,7 @@ function createClient(options, authOptions, logger) {
     return apiCall(requestData, requestToken);
   };
 
+
   return instance;
 }
 
@@ -180,6 +183,12 @@ function createClient(options, authOptions, logger) {
 function getClient(clientOptions, logger) {
   const { params, ...options } = clientOptions;
   options.version = "V1";
+logger.info("============== create client 22 ===============");
+logger.info("============== options ===============" + JSON.stringify(options));
+logger.info("============== params ===============" + JSON.stringify(params));
+logger.info("============== fromParams ===============" + JSON.stringify(fromParams(params)));
+
+
 
   return createClient(options, fromParams(params), logger);
 }
