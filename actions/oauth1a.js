@@ -34,7 +34,7 @@ function withBearer(token) {
  */
 function createClient(options, authOptions, logger) {
   const instance = {};
-logger.info("============== authOptions 11111111111   ===============");
+  logger.info("============== authOptions 11111111111   ===============");
 
   // Remove trailing slash if any
   const serverUrl = options.url;
@@ -43,7 +43,7 @@ logger.info("============== authOptions 11111111111   ===============");
   let getAuthorizationHeaders = (opts) => {
     throw new Error("getAuthorizationHeaders not implemented");
   };
-logger.info("============== authOptions 222222222222222  ===============");
+  logger.info("============== authOptions 222222222222222  ===============");
 
   if (authOptions?.ims) {
     const { ims } = authOptions;
@@ -60,8 +60,8 @@ logger.info("============== authOptions 222222222222222  ===============");
       secret: commerceOAuth1.accessTokenSecret,
     };
     const oauth = getOAuthHeader(commerceOAuth1);
-    getAuthorizationHeaders = ({ url, method }) => {
-      return oauth.toHeader(
+    getAuthorizationHeaders = ({ url, method }) =>
+      oauth.toHeader(
         oauth.authorize(
           {
             url,
@@ -70,7 +70,6 @@ logger.info("============== authOptions 222222222222222  ===============");
           oauthToken,
         ),
       );
-    };
   }
 
   /**
@@ -170,7 +169,6 @@ logger.info("============== authOptions 222222222222222  ===============");
     return apiCall(requestData, requestToken);
   };
 
-
   return instance;
 }
 
@@ -183,12 +181,15 @@ logger.info("============== authOptions 222222222222222  ===============");
 function getClient(clientOptions, logger) {
   const { params, ...options } = clientOptions;
   options.version = "V1";
-logger.info("============== create client 22 ===============");
-logger.info("============== options ===============" + JSON.stringify(options));
-logger.info("============== params ===============" + JSON.stringify(params));
-logger.info("============== fromParams ===============" + JSON.stringify(fromParams(params)));
-
-
+  logger.info("============== create client 22 ===============");
+  logger.info(
+    "============== options ===============" + JSON.stringify(options),
+  );
+  logger.info("============== params ===============" + JSON.stringify(params));
+  logger.info(
+    "============== fromParams ===============" +
+      JSON.stringify(fromParams(params)),
+  );
 
   return createClient(options, fromParams(params), logger);
 }

@@ -11,9 +11,8 @@ governing permissions and limitations under the License.
 */
 const { algoliasearch } = require("algoliasearch");
 const { getProduct } = require("../../commerce-product-api-client");
-const { Core } = require("@adobe/aio-sdk");
-const { getAlgoliaConfig } = require('../../../../lib/algolia-config');
-
+//const { Core } = require("@adobe/aio-sdk");
+const { getAlgoliaConfig } = require("../../../../lib/algolia-config");
 
 /**
  * This function send the product updated dara to the external back-office application
@@ -27,66 +26,71 @@ async function sendData(params, data, preProcessed) {
   // @TODO Here add the logic to send the information to 3rd party
   // @TODO Use params to retrieve needed parameters from the environment
   // @TODO in case of error return { success: false, statusCode: <error status code>, message: '<error message>' }
-
+/**
   const logger = Core.Logger("product-commerce-consumer", {
     level: params.LOG_LEVEL || "info",
-  });
+  }); */
 
   // Replace with your actual credentials
   const algoliaConfig = await getAlgoliaConfig(params);
- 
-  //  logger.debug(algoliaConfig);
-  logger.debug("==============Algolia get 3333333333333333 ================");
-  logger.debug(JSON.stringify(algoliaConfig));
-  
 
- if (algoliaConfig.enableExtension !== "1") {
+  //  logger.debug(algoliaConfig);
+  //logger.debug("==============Algolia get 3333333333333333 ================");
+  //logger.debug(JSON.stringify(algoliaConfig));
+
+  if (algoliaConfig.enableExtension !== "1") {
     return {
       success: true,
     };
- }
-
- const client = algoliasearch(algoliaConfig.applicationId, algoliaConfig.applicationKey);
-
-
-let result = null;
-try {
-    result = await getProduct(
-      params.COMMERCE_BASE_URL,
-      params,
-      data.sku
-    );
-  } catch (error) {
-    console.log("error in retrieving the product details")
   }
-  
-  let description = '';
-  
-  (result.custom_attributes).forEach(function(element) {
-    if (element.attribute_code == 'description') {
+
+  const client = algoliasearch(
+    algoliaConfig.applicationId,
+    algoliaConfig.applicationKey,
+  );
+
+  let result = null;
+  try {
+    result = await getProduct(params.COMMERCE_BASE_URL, params, data.sku);
+  } catch (error) {
+    console.log("error in retrieving the product details");
+  }
+
+  let description = "";
+
+  result.custom_attributes.forEach((element) => {
+    if (element.attribute_code == "description") {
       description = element.value;
     }
-  }); 
-  
-  logger.debug("=========Products ===================== " + JSON.stringify(result.custom_attributes));
+  });
+/**
+  logger.debug(
+    "=========Products ===================== " +
+      JSON.stringify(result.custom_attributes),
+  ); */
 
+  const record = {
+    sku: data.sku,
+    name: data.name,
+    url_key: data.url_key,
+    description,
+  };
+/**
+  logger.debug(
+    "=========record ===================== " + JSON.stringify(record),
+  ); */
 
-const record = { sku: data.sku, name: data.name, url_key: data.url_key, description: description};
-
-  logger.debug("=========record ===================== " + JSON.stringify(record));
-
-// Call the API
-const response = await client.addOrUpdateObject({
-  indexName: algoliaConfig.indexName,
-  objectID: data.sku,
-  body: record,
-});
+  // Call the API
+  const response = await client.addOrUpdateObject({
+    indexName: algoliaConfig.indexName,
+    objectID: data.sku,
+    body: record,
+  });
 
   return {
     success: true,
   };
 }
-   
 
 module.exports = {
   sendData,

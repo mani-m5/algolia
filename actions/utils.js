@@ -31,11 +31,7 @@ function stringParameters(params) {
   // hide parameters including terms in the 'hidden' array
   let sanitizedParams = { ...params };
   for (const key of Object.keys(sanitizedParams)) {
-    if (
-      !hidden.every((v) => {
-        return key.toLowerCase().indexOf(v) === -1;
-      })
-    ) {
+    if (!hidden.every((v) => key.toLowerCase().indexOf(v) === -1)) {
       sanitizedParams = { ...sanitizedParams, [key]: "<hidden>" };
     }
   }

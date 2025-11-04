@@ -88,7 +88,7 @@ async function deleteProduct(baseUrl, params, sku) {
  * @param {string} sku - Stock keeping unit
  */
 async function getProduct(baseUrl, params, sku) {
-    logger.info("1111111111111111111111111111");
+  logger.info("1111111111111111111111111111");
 
   const client = getClient(
     {
@@ -105,5 +105,5 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
-  getProduct
+  getProduct,
 };

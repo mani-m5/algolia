@@ -47,8 +47,8 @@ function logOnboardingError(phase, errorInfo) {
     metadata: "METADATA_ONBOARDING",
     registrations: "REGISTRATIONS_ONBOARDING",
   };
-	console.error("================================================");
-console.error(errorInfo);
+  console.error("================================================");
+  console.error(errorInfo);
   const payloadError = payload ? formatError(payload) : "No additional details";
   const additionalDetails =
     CommerceSdkValidationError.isSdkError(payload) &&
@@ -134,7 +134,7 @@ async function main() {
       );
       return;
     }
-console.error("1111111111111111111111111111111111111111111111111111");
+    console.error("1111111111111111111111111111111111111111111111111111");
     logOnboardingError(
       "getAccessToken",
       makeError(
@@ -145,13 +145,13 @@ console.error("1111111111111111111111111111111111111111111111111111");
     );
     return;
   }
-console.error("222222222222222222222222222222222222222222222222222222");
+  console.error("222222222222222222222222222222222222222222222222222222");
   const createProvidersResult = await require("../lib/providers").main(
     registrations,
     process.env,
     authHeaders,
   );
-console.error("3333333333333333333333333333333333");
+  console.error("3333333333333333333333333333333333");
   if (!createProvidersResult.success) {
     logOnboardingError("providers", createProvidersResult.error);
     return;
@@ -165,29 +165,29 @@ console.error("3333333333333333333333333333333333");
     authHeaders,
   );
 
-console.error("444444444444444444444444444444444444");
+  console.error("444444444444444444444444444444444444");
 
   if (!createProvidersMetadataResult.success) {
     logOnboardingError("metadata", createProvidersMetadataResult.error);
     return;
   }
-console.log("555555555555555555555555555555555555555");
+  console.log("555555555555555555555555555555555555555");
   const registerEntityEventsResult = await require("../lib/registrations").main(
     registrations,
     providers,
     process.env,
     authHeaders,
   );
-	console.log("66666666666666666666666666666666");
-	console.log(registerEntityEventsResult);
-	console.log("7777777777777777777777777");
-	console.log(registrations);
-	console.log("aaaaaaaaaaaaaaaaaaaaaa");
-	console.log(providers);
-	console.log("bbbbbbbbbbbbbbbbbbbbbbbbbb");
-	console.log(process.env);
-	console.log("ccccccccccccccccccccccccccc");
-	console.log(authHeaders);
+  console.log("66666666666666666666666666666666");
+  console.log(registerEntityEventsResult);
+  console.log("7777777777777777777777777");
+  console.log(registrations);
+  console.log("aaaaaaaaaaaaaaaaaaaaaa");
+  console.log(providers);
+  console.log("bbbbbbbbbbbbbbbbbbbbbbbbbb");
+  console.log(process.env);
+  console.log("ccccccccccccccccccccccccccc");
+  console.log(authHeaders);
   if (!registerEntityEventsResult.success) {
     logOnboardingError("registrations", registerEntityEventsResult.error);
     return;

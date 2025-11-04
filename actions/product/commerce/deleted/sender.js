@@ -11,7 +11,7 @@ governing permissions and limitations under the License.
 */
 
 const { algoliasearch } = require("algoliasearch");
-const { getAlgoliaConfig } = require('../../../../lib/algolia-config');
+const { getAlgoliaConfig } = require("../../../../lib/algolia-config");
 
 /**
  * This function send the product deleted dara to the external back-office application
@@ -26,20 +26,24 @@ async function sendData(params, data, preProcessed) {
   // @TODO Use params to retrieve needed parameters from the environment
   // @TODO in case of error return { success: false, statusCode: <error status code>, message: '<error message>' }
 
- const algoliaConfig = await getAlgoliaConfig(params);
- 
- if (algoliaConfig.enableExtension !== "1") {
+  const algoliaConfig = await getAlgoliaConfig(params);
+
+  if (algoliaConfig.enableExtension !== "1") {
     return {
       success: true,
     };
- }
+  }
 
- const client = algoliasearch(algoliaConfig.applicationId, algoliaConfig.applicationKey);
+  const client = algoliasearch(
+    algoliaConfig.applicationId,
+    algoliaConfig.applicationKey,
+  );
 
-
- // Call the API
- const response = await client.deleteObject({ indexName: algoliaConfig.indexName, objectID: data.sku });
-
+  // Call the API
+  const response = await client.deleteObject({
+    indexName: algoliaConfig.indexName,
+    objectID: data.sku,
+  });
 
   return {
     success: true,
