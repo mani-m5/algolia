@@ -3,7 +3,7 @@ application:
 #    post-app-deploy: ./hooks/post-app-deploy.js
   runtimeManifest:
     packages:
-      starter-kit:
+      algolia:
         license: Apache-2.0
         actions:
           # Please DO NOT DELETE this action; future functionalities planned for upcoming starter kit releases may stop working.
@@ -16,6 +16,18 @@ application:
             annotations:
               require-adobe-auth: true
               final: true
+          mySchedulerV4:
+            function: actions/mySchedulerV4/index.js
+            runtime: nodejs:22
+          mySchedulerV5:
+            function: actions/mySchedulerV5/index.js
+            runtime: nodejs:22
+          sendEmail:
+            function: actions/sendEmail/index.js
+            runtime: nodejs:22
+            inputs:
+              LOG_LEVEL: debug
+              SENDGRID_API_KEY: $SENDGRID_API_KEY
       #  ingestion:
       #    license: Apache-2.0
       #    actions:
@@ -24,6 +36,10 @@ application:
         license: Apache-2.0
         actions:
           $include: ./actions/webhook/actions.config.yaml
+      api:
+        license: Apache-2.0
+        actions:
+          $include: ./actions/api/actions.config.yaml
       product-commerce:
         license: Apache-2.0
         actions:

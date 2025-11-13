@@ -12,8 +12,7 @@ governing permissions and limitations under the License.
 
 const { Core } = require("@adobe/aio-sdk");
 const sgMail = require('@sendgrid/mail');
-const fs = require('fs');
-const path = require('path');
+const fetch = require('node-fetch');
 
 /**
  * This action is on charge of sending updated product information in Adobe commerce to external back-office application
@@ -35,18 +34,25 @@ async function main(params) {
   //sgMail.setDataResidency('eu'); 
   // uncomment the above line if you are sending mail using a regional EU subuser
 
-  const templatePath = path.resolve(__dirname, 'welcome.html');
-      console.log('templatePath === ', templatePath);
 
-  let htmlContent = fs.readFileSync(templatePath, 'utf8');
-/**
-  // Replace placeholders
+  const remoteUrl = 'https://main--store1--mani-m5.aem.live/placeholders/email-templates.json'; // Replace with your actual URL
+  const response = await fetch(remoteUrl);
+
+  if (!response.ok) {
+    throw new Error(`Fetch failed: ${response.status} ${response.statusText}`);
+  }
+
+  let jsonFile = await response.text();
+  jsonFile = JSON.parse(jsonFile);
+  let htmlContent = jsonFile.data[0].Value;
+
   htmlContent = htmlContent.replace('{{name}}', params.name || 'User');
 
   const msg = {
     to: 'mani.stelli@gmail.com', // Change to your recipient
     from: 'mani.stelli65@yopmail.com', // Change to your verified sender
     subject: 'Sending with SendGrid from the Adobe App Builder',
+    text: 'Send email from Adobe builder with Node.js SendGrid module',
     html: htmlContent,
   }
 
@@ -59,7 +65,8 @@ async function main(params) {
   } catch (error) {
     console.error('Error sending email:', error.response?.body || error);
   }
- */
+
+
   return {
     statusCode: 200,
     body: res

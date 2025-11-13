@@ -16,6 +16,8 @@ created:
   runtime: nodejs:22
   inputs:
     LOG_LEVEL: debug
+    __OW_NAMESPACE: $__OW_NAMESPACE
+    __OW_API_KEY: $__OW_API_KEY
   annotations:
     require-adobe-auth: true
     final: true
@@ -31,6 +33,8 @@ updated:
     OAUTH_SCOPES: $OAUTH_SCOPES
     ENCRYPTION_KEY: $ENCRYPTION_KEY
     ENCRYPTION_IV: $ENCRYPTION_IV
+    __OW_NAMESPACE: $__OW_NAMESPACE
+    __OW_API_KEY: $__OW_API_KEY
   annotations:
     require-adobe-auth: true
     final: true

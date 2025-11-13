@@ -1,0 +1,117 @@
+{
+  "meshConfig": {
+    "sources": [
+      {
+        "name": "CommerceSaaSGraphQl",
+        "handler": {
+          "graphql": {
+            "endpoint": "https://na1-sandbox.api.commerce.adobe.com/4wQSG2tXazwRKoDE5vahEA/graphql",
+            "useGETForQueries": true,
+            "operationHeaders": {
+              "Authorization": "{context.headers['authorization']}",
+              "Magento-Store-View-Code": "{context.headers['magento-store-view-code']}",
+              "Magento-Website-Code": "{context.headers['magento-website-code']}",
+              "x-api-key": "{context.headers['x-api-key']}",
+              "Magento-Store-Code": "{context.headers['magento-store-code']}",
+              "Magento-Environment-Id": "{context.headers['magento-environment-id']}",
+              "Content-Type": "application/json",
+              "Magento-Customer-Group": "{context.headers['magento-customer-group']}"
+            }
+          }
+        },
+        "transforms": [
+          {
+            "prefix": {
+              "includeRootOperations": true,
+              "value": "store1_"
+            }
+          }
+        ],
+        "responseConfig": {
+          "headers": ["X-Magento-Cache-Id"]
+        }
+      },
+      {
+        "name": "Announcements",
+        "handler": {
+          "JsonSchema": {
+            "baseUrl": "https://19211-algoliademoproject-stage.adobeioruntime.net/api/v1/web/api/getDevices",
+            "operations": [
+              {
+                "type": "Query",
+                "field": "announcements",
+                "path": "/",
+                "method": "GET",
+                "responseSample": "https://19211-algoliademoproject-stage.adobeioruntime.net/api/v1/web/api/getDevices"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "VeniaGraphql",
+        "handler": {
+          "graphql": {
+            "endpoint": "https://venia.magento.com/graphql",
+            "useGETForQueries": true,
+            "operationHeaders": {
+              "Content-Type": "application/json"
+            }
+          }
+        },
+        "transforms": [
+          {
+            "prefix": {
+              "includeRootOperations": true,
+              "value": "store2_"
+            }
+          }
+        ]
+      },
+      {
+        "name": "CountriesGraphql",
+        "handler": {
+          "graphql": {
+            "endpoint": "https://countries.trevorblades.com/graphql",
+            "useGETForQueries": true,
+            "operationHeaders": {
+              "Content-Type": "application/json"
+            }
+          }
+        },
+        "transforms": [
+          {
+            "prefix": {
+              "includeRootOperations": true,
+              "value": "country_"
+            }
+          }
+        ]
+      }
+    ],
+    "additionalTypeDefs": "extend type store1_StoreConfig {announcement: String}",
+    "additionalResolvers": ["./resolvers.js"],
+    "transforms": [
+      {
+        "namingConvention": {
+          "enumValues": "lowerCase",
+          "fieldNames": "lowerCase"
+        }
+      }
+    ],
+    "responseConfig": {
+      "includeHTTPDetails": false,
+      "headers": {
+        "mode": "no-cors",
+        "x-include-metadata": "true"
+      },
+      "CORS": {
+        "credentials": true,
+        "maxAge": 60480,
+        "exposedHeaders": ["Content-Range", "X-Content-Range"],
+        "methods": ["GET", "POST"],
+        "origin": "*"
+      }
+    }
+  }
+}
